@@ -1,43 +1,67 @@
-class Employee:
-    def __init__(self, name: str, salary: float):
-        # Using protected attributes (single underscore) for encapsulation
-        self._name = name
-        self._salary = salary
+import math
 
-    def increase_salary(self, percentage: float):
-        if percentage < 0:
-            print("Error: Salary increase percentage must be non-negative.")
-            return
-        raise_amount = self._salary * (percentage / 100.0)
-        self._salary += raise_amount
-        print(f"{self._name}'s salary increased by {percentage:.2f}% (+\${raise_amount:,.2f}).")
+def fact(n):
+    # check
+    if n < 0:
+        return 'Invalid' # error
+    # start
+    res = 1
+    # loop
+    for i in range(1, n + 1):
+        # multiply
+        res *= i
+    # done
+    return res
 
-    def display_info(self):
-        print("-" * 30)
-        print(f"Employee: {self._name}")
-        print(f"Salary:   \${self._salary:,.2f}") # Formatted with comma separators
-        print("-" * 30)
-    # Optional: Getter methods for controlled access to protected attributes
-    def get_name(self) -> str:
-        """Returns the employee's name."""
-        return self._name
-    def get_salary(self) -> float:
-        """Returns the employee's current salary."""
-        return self._salary
-# --- Example Usage ---
-# 1. Create an employee object
-employee1 = Employee(name="Alice Johnson", salary=60000.00)
+def calculate_factorial(n: int) -> int | str:
+    """
+    Calculates the factorial (n!) of a non-negative integer.
 
-# 2. Display initial information
-print("--- Initial State ---")
-employee1.display_info()
+    The factorial of an integer n is the product of all positive integers 
+    less than or equal to n.
 
-# 3. Apply a salary increase
-print("\n--- Applying a Raise ---")
-employee1.increase_salary(percentage=7.5)
+    Parameters
+    ----------
+    n : int
+        The non-negative integer for which to calculate the factorial.
 
-# 4. Display updated information
-print("\n--- Updated State ---")
-employee1.display_info()
-# 5. Accessing information using getters
-print(f"\nAccessing Name via Getter: {employee1.get_name()}")
+    Returns
+    -------
+    int or str
+        The factorial of the number as an integer. Returns the string 
+        'Invalid' if the input n is negative.
+    """
+    
+    # Handle the edge case for negative input as defined by the original function's logic.
+    if n < 0:
+        return 'Invalid'
+
+    # Handle the base case: Factorial of 0 is 1.
+    if n == 0:
+        return 1
+        
+    result = 1
+    # Iterate from 1 up to and including n to calculate the product.
+    for i in range(1, n + 1):
+        result *= i
+        
+    return result
+
+# --- Code to execute the function and produce output ---
+
+print("--- Factorial Calculation Tests ---")
+
+# Test 1: Positive integer (5!)
+num_1 = 5
+result_1 = calculate_factorial(num_1)
+print(f"The factorial of {num_1} is: {result_1}")  # Expected: 120
+
+# Test 2: Base case (0!)
+num_2 = 0
+result_2 = calculate_factorial(num_2)
+print(f"The factorial of {num_2} is: {result_2}")  # Expected: 1
+
+# Test 3: Negative input (Error case)
+num_3 = -2
+result_3 = calculate_factorial(num_3)
+print(f"The factorial of {num_3} is: {result_3}")  # Expected: Invalid
